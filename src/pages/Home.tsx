@@ -3,13 +3,17 @@ import { noteRepository } from '@/modules/notes/note.repository';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { useCurrentUserStore } from "../modules/auth/current-user.state";
+import { useNoteStore } from '@/modules/notes/note.state';
 
 export function Home() {
   const [title, setTitle] = useState('');
   const { currentUser } = useCurrentUserStore();
+  const noteStore = useNoteStore();
+
 
   const createNote = async () => {
     const newNote = await noteRepository.create(currentUser!.id, { title });
+    noteStore.set([newNote])
     setTitle('');
     console.log(newNote);
   }
