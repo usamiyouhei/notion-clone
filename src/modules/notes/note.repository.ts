@@ -18,7 +18,7 @@ export const noteRepository = {
   return data;
 
   },
-  async find(userId: string, parentDocumentId: number) {
+  async find(userId: string, parentDocumentId?: number) {
     const query = supabase
     .from('notes')
     .select()
