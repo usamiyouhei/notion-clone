@@ -22,7 +22,8 @@ export function NoteList({ layer = 0, parentId }: NoteListProps) {
   const createChild = async (e: React.MouseEvent, parentId: number) => {
     e.stopPropagation();
     const newNote = await noteRepository.create(currentUser!.id, { parentId });
-    noteStore.set([newNote])
+    noteStore.set([newNote]);
+    setExpanded((prev) => prev.set(parentId, true))
   }
 
   const fetchChildren = async(e: React.MouseEvent,note:Note) => {
