@@ -36,7 +36,7 @@ export const noteRepository = {
     .select()
     .eq('user_id', userId)
     .or(`title.ilike.%${keyword}%,content.ilike.%${keyword}%`)
-    .order('create_at', { ascending: false });
+    .order('created_at', { ascending: false });
     return data;
   },
 
