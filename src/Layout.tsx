@@ -5,11 +5,14 @@ import { useCurrentUserStore } from "./modules/auth/current-user.state";
 import { useNoteStore } from "./modules/notes/note.state";
 import { useState, useEffect } from "react";
 import { noteRepository } from "./modules/notes/note.repository";
+import { Note } from './modules/notes/note.entity';
 
 const Layout = () => {
     const { currentUser } = useCurrentUserStore();
     const noteStore = useNoteStore();
     const [isLoding, setIsLoading] = useState(false);
+    const [isShowModal, setIsShowModal] = useState(false);
+    const [searchResult, setSearchResult] = useState<Note[]>([])
 
     useEffect(() => {
       fetchNotes()
@@ -29,15 +32,15 @@ const Layout = () => {
 
   return (
     <div className="h-full flex">
-      {!isLoding && <SideBar onSearchButtonClicked={() => {}} />}
+      {!isLoding && <SideBar onSearchButtonClicked={() => setIsShowModal(true)} />}
       <main className="flex-1 h-full overflow-y-auto">
         <Outlet />
         <SearchModal
-          isOpen={false}
+          isOpen={isShowModal}
           notes={[]}
           onItemSelect={() => {}}
           onKeywordChanged={() => {}}
-          onClose={() => {}}
+          onClose={() => setIsShowModal(false)}
         />
       </main>
     </div>
