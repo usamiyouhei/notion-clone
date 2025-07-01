@@ -4,8 +4,11 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { useCurrentUserStore } from "../modules/auth/current-user.state";
 import { useNoteStore } from '@/modules/notes/note.state';
+import { useNavigate } from "react-router-dom";
+
 
 export function Home() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const { currentUser } = useCurrentUserStore();
   const noteStore = useNoteStore();
@@ -16,6 +19,8 @@ export function Home() {
     noteStore.set([newNote])
     setTitle('');
     console.log(newNote);
+    navigate(`/notes/${newNote.id}`)
+
   }
   return (
     <Card className="border-0 shadow-none w-1/2 m-auto">
