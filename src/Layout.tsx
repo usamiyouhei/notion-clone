@@ -27,6 +27,13 @@ const Layout = () => {
     setIsLoading(false);
     }
 
+    const searchNotes = async(keyword: string) => {
+      const notes = await noteRepository.findByKeyword(currentUser!.id, keyword);
+      if ( notes == null ) return;
+      noteStore.set(notes);
+      setSearchResult(notes)
+    }
+
 
     if(currentUser == null) return <Navigate replace to="/signin" />
 
@@ -37,9 +44,9 @@ const Layout = () => {
         <Outlet />
         <SearchModal
           isOpen={isShowModal}
-          notes={[]}
+          notes={searchResult}
           onItemSelect={() => {}}
-          onKeywordChanged={() => {}}
+          onKeywordChanged={searchNotes}
           onClose={() => setIsShowModal(false)}
         />
       </main>
