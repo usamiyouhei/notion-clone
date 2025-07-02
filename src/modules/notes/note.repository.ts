@@ -58,5 +58,13 @@ export const noteRepository = {
     .select()
     .single();
     return data;
+  },
+
+  async delete(id: number) {
+    const { error } = await supabase.rpc("delete_children_notes_recursively",{
+      note_id: id,
+    });
+    if(error !== null) throw new Error(error.message);
+    return true;
   }
 }
