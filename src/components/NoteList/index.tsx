@@ -5,7 +5,7 @@ import { noteRepository } from '@/modules/notes/note.repository';
 import { useCurrentUserStore } from "@/modules/auth/current-user.state";
 import { Note } from "@/modules/notes/note.entity";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 interface NoteListProps {
@@ -14,6 +14,8 @@ interface NoteListProps {
 }
 
 export function NoteList({ layer = 0, parentId }: NoteListProps) {
+  const params = useParams();
+  const id = params.id != null ? parseInt(params.id) : undefined;
   const navigate = useNavigate()
   const noteStore = useNoteStore();
   const notes = noteStore.getAll();
@@ -72,6 +74,7 @@ export function NoteList({ layer = 0, parentId }: NoteListProps) {
             <NoteItem 
               note={note} 
               layer={layer}
+              isSelected={id == note.id}
               expanded={expanded.get(note.id)}
               onClick={()=> moveToDetail(note.id)}
               onExpand={(e: React.MouseEvent) => fetchChildren(e, note)}
