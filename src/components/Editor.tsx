@@ -3,6 +3,8 @@ import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
 import { BlockNoteView } from '@blocknote/mantine';
 import { ja } from "@blocknote/core/locales";
+// import { locales } from "@blocknote/core";   // ← ここだけ変更！
+
 
 interface EditorProps {
   onChange: (value: string) => void;
