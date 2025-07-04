@@ -1,13 +1,4 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -15,6 +6,11 @@
         "./src/*"
       ]
     },
-    "moduleResolution": "bundler"
-  }
+    "moduleResolution": "bundler",
+    "module": "ESNext", // ← これを追加しないと bundler と相性悪い
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src"
+  ]
 }
